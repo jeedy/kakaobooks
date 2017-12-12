@@ -12,8 +12,8 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import com.jeeyong.kakaobooks.dao.Member;
 import com.jeeyong.kakaobooks.dao.MemberRepository;
 
-@EnableAutoConfiguration
-@ComponentScan
+//@EnableAutoConfiguration
+//@ComponentScan
 public class App implements CommandLineRunner {
 	
 	@Autowired MemberRepository memberRepository;
@@ -27,8 +27,8 @@ public class App implements CommandLineRunner {
 
 	}
 	
-	public static void main(String[] args) {
-		SpringApplication.run(App.class, args);
-	}
+//	public static void main(String[] args) {
+//		SpringApplication.run(App.class, args);
+//	}
 
 }
