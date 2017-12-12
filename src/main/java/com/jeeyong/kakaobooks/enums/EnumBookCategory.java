@@ -1,6 +1,6 @@
 package com.jeeyong.kakaobooks.enums;
 
-public enum EnumCategory {
+public enum EnumBookCategory {
 	국내도서_소설("국내도서/소설", "1"),
 	국내도서_시("국내도서/시", "3"),
 	국내도서_요리("국내도서/요리", "8"),
@@ -12,7 +12,7 @@ public enum EnumCategory {
 	private String desc;
 	private String code;
 	
-	private EnumCategory( String desc, String code) {
+	private EnumBookCategory( String desc, String code) {
 		this.desc = desc;
 		this.code = code;
 	}

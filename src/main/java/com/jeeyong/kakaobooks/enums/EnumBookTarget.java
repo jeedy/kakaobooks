@@ -1,5 +1,5 @@
 package com.jeeyong.kakaobooks.enums;
 
-public enum EnumTarget {
+public enum EnumBookTarget {
 	title, all, isbn, keyword, contents, overview, publisher
 }

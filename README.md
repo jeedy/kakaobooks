@@ -6,6 +6,7 @@
 ### 시스템 구성 
 
 1. Java 8 버전을 사용.
+1. framework - spring-boot
 1. server - Spring-boot 에서 제공하는 내부서버(Tomcat) 사용 
 1. Database - h2 (maven dependency)
 

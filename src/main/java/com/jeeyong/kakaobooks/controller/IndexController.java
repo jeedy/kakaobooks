@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.jeeyong.kakaobooks.enums.EnumCategory;
-import com.jeeyong.kakaobooks.enums.EnumTarget;
+import com.jeeyong.kakaobooks.enums.EnumBookCategory;
+import com.jeeyong.kakaobooks.enums.EnumBookTarget;
 
 
 @Controller
@@ -21,8 +21,8 @@ public class IndexController {
 	public String index( HttpServletRequest req, HttpServletResponse res, Model model ) {
 		
 		//
-		model.addAttribute("EnumTarget", EnumTarget.values());
-		model.addAttribute("EnumCategory", EnumCategory.values());
+		model.addAttribute("EnumTarget", EnumBookTarget.values());
+		model.addAttribute("EnumCategory", EnumBookCategory.values());
 		return "/index";
 	}
 

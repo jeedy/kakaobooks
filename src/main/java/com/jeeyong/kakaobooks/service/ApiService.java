@@ -2,7 +2,6 @@ package com.jeeyong.kakaobooks.service;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
