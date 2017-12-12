@@ -7,7 +7,7 @@
 
 1. Java 8 버전을 사용.
 1. server - Spring-boot 에서 제공하는 내부서버(Tomcat) 사용 
-1. Database - h2 
+1. Database - h2 (maven dependency)
 
 
 ### 설치
@@ -15,7 +15,7 @@
 <https://github.com/jeedy/kakaobooks.git>
 
 1. <https://github.com/jeedy/kakaobooks.git> 에서 `Fork` 버튼 클릭하고,
-2. 포크 저장소 계정(maybe 개인 계정) 선택
+2. 포크 저장소 계정 선택
 3. git fetch or pull or clone
 4. 포크 설정 [Configuring a remote for a fork](https://help.github.com/articles/configuring-a-remote-for-a-fork/)
 5. 포크 동기화 [Syncing a fork](https://help.github.com/articles/syncing-a-fork/)
