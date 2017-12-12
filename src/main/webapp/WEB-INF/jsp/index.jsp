@@ -65,16 +65,20 @@ function submitSearch(page){
 					$("#books > #resultMessage").hide();
 					var html = "";
 					$(res.documents).each(function(idx){
-						var authors = "", trans="";
+						var authors = "", trans="",thumbnail="";
 						$(this.authors).each(function(){
 							authors+= (this+" ")
 						});
 						$(this.translators).each(function(){
 							trans+= (this+" ")
 						});
+						if(this.thumbnail) {
+							thumbnail = "<img src='"+this.thumbnail+"' width='100'>";
+						}
+						
 						html+="<li class='list-group-item'>";
 						html+="<dl><dt>"+this.title+" | "+this.publisher+" <a href='#'>bookmark</a></dt>";
-						html+="<dd><img src='"+this.thumbnail+"' width='100'> 저자: "+authors+"<br> 번역자: "+trans+"<br> 상태: "+this.status+" </dd></dl></li>";
+						html+="<dd>"+thumbnail+" 저자: "+authors+"<br> 번역자: "+trans+"<br> 상태: "+this.status+" </dd></dl></li>";
 					});
 					if(!res.meta.is_end){
 						html+="<li><button onclick='submitSearch("+(pg+1)+"); $(this).parent().remove();'>더보기 </button></li>";
