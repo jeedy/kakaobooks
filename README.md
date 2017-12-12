@@ -40,6 +40,13 @@ $ mvn clean compile
 $ mvn spring-boot:run
 $ curl -v localhost:8000
 ```
+### 테스트 (Junit)
+
+```
+$ export JAVA_HOME="`/usr/libexec/java_home -v '1.8*'`"
+$ mvn clean compile
+$ mvn test
+```
 
 ### 배포용 (Jar 압축)
 
