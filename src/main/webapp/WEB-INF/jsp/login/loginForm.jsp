@@ -9,10 +9,10 @@
 <body>
 	<fieldset>
 		<legend>로그인</legend>
-		<div class="alert" style="${param.error?'display:block':'display:none'}">잘못된 아이디입니다.</div>
-		<form action="/login" method="POST">
-			<input type="text" name="account" value="" class="${param.error?'error':'' }">
-			<input type="password" name="pwd" value="" class="${param.error?'error':'' }">
+		<div class="alert" style="${param.resultCode?'display:block':'display:none'}">잘못된 아이디입니다.</div>
+		<form action="/loginForm" method="POST">
+			<input type="text" name="account" value="" class="${param.resultCode?'error':'' }">
+			<input type="password" name="pwd" value="" class="${param.resultCode?'error':'' }">
 			<button type="submit">로그인</button>
 		</form>
 	</fieldset>

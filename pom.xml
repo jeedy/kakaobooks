@@ -41,11 +41,9 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency -->
+		<!-- 내장톰켓이 아닌 외부 서블릿 컨테이너로 사용하기 위해 배포용(war)으로 제작할 경우 주석해제, 전에 <packaging>war</packaging>로 
+			변경 필요. <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-tomcat</artifactId> 
+			<scope>provided</scope> </dependency -->
 
 		<!-- Password Encryption -->
 		<dependency>
@@ -73,11 +71,8 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.16.18</version>
-		</dependency>
+		<!-- not used to <dependency> <groupId>org.projectlombok</groupId> <artifactId>lombok</artifactId> 
+			<version>1.16.18</version> <scope>provided</scope> </dependency -->
 
 		<!-- h2 database -->
 		<dependency>

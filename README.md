@@ -3,13 +3,13 @@
 
 > 제출용 프로젝트 특성상 설치가 없이 소스 받아 실행할 수 있도록 내장 어플리케이션을 사용했습니다. 
 
-### 시스템 구성 
+### 기술 track
 
-1. Java 8 버전을 사용.
+1. Java 8 버전을 사용
 1. framework - spring-boot
 1. server - Spring-boot 에서 제공하는 내부서버(Tomcat) 사용 
 1. Database - h2 (maven dependency)
-
+1. code style - google code style
 
 ### 설치
 
