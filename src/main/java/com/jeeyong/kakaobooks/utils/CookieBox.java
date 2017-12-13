@@ -23,17 +23,16 @@ public class CookieBox {
 	 * @return
 	 */
 	public static final boolean isLogin(HttpServletRequest req) {
-		PasswordEncoding pe = new PasswordEncoding();
+		CryptEncoding encoding = new CryptEncoding();
 
-		String account = getCookie(req, "account");
-		String timeStamp = getCookie(req, "timeStamp");
-		String validChecker = getCookie(req, "validChecker");
+		String account = getCookie(req, "account_site");
+		String timeStamp = getCookie(req, "timeStamp_site");
+		String validChecker = getCookie(req, "validChecker_site");
 
 		if (account == null || timeStamp == null || validChecker == null) {
-			logger.info("account" + account);
 			return false;
 		}
-		return pe.matches(ENCRYT_KEY + "|" + account + "|" + timeStamp, validChecker);
+		return encoding.matches(ENCRYT_KEY + "|" + account + "|" + timeStamp, validChecker);
 	}
 
 	/**
@@ -43,10 +42,10 @@ public class CookieBox {
 	 * @param account
 	 */
 	public static final void login(HttpServletResponse res, String account) {
-		PasswordEncoding pe = new PasswordEncoding();
+		CryptEncoding encoding = new CryptEncoding();
 
 		String timeStamp = String.valueOf(System.currentTimeMillis());
-		String validstring = pe.encode(ENCRYT_KEY + "|" + account + "|" + timeStamp);
+		String validstring = encoding.encode(ENCRYT_KEY + "|" + account + "|" + timeStamp);
 
 		addCookie(res, "account_site", account, 365);
 		addCookie(res, "timeStamp_site", timeStamp, 365);

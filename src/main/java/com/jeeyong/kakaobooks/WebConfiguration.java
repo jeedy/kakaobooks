@@ -76,7 +76,7 @@ public class WebConfiguration {
 			} else {
 				String account = CookieBox.getAccount(httpServletRequest);
 
-				logger.info("account=" + account);
+				logger.debug("account=" + account);
 
 				if (!CookieBox.isLogin(httpServletRequest)) {
 					httpServletResponse

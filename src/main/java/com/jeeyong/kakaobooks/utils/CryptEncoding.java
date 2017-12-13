@@ -3,14 +3,14 @@ package com.jeeyong.kakaobooks.utils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class PasswordEncoding implements PasswordEncoder{
+public class CryptEncoding implements PasswordEncoder{
 	private PasswordEncoder passwordEncoder;
 	
-	public PasswordEncoding() {
+	public CryptEncoding() {
 		this.passwordEncoder = new BCryptPasswordEncoder();
 	}
 
-	public PasswordEncoding(PasswordEncoder passwordEncoder) {
+	public CryptEncoding(PasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;
 	}
 	

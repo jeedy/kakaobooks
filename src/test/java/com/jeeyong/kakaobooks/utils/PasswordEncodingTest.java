@@ -15,7 +15,7 @@ public class PasswordEncodingTest {
 		String password = "1234";
 		String otherPassword = "4321";
 
-		PasswordEncoding passwordEncoding = new PasswordEncoding();
+		CryptEncoding passwordEncoding = new CryptEncoding();
 		String pw1 = passwordEncoding.encode(password);
 		logger.info("암호1 : " + pw1);
 		String pw2 = passwordEncoding.encode(password);
