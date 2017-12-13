@@ -16,7 +16,7 @@ import com.jeeyong.kakaobooks.service.ApiService;
 import com.jeeyong.kakaobooks.utils.SU;
 
 @RestController
-@RequestMapping("/ajax/*")
+@RequestMapping("/ajax/")
 public class AjaxController {
 	private static final Logger logger = LoggerFactory.getLogger(AjaxController.class);
 	@Autowired
@@ -34,4 +34,5 @@ public class AjaxController {
 		//
 		return result;
 	}
+
 }

@@ -48,4 +48,10 @@ public class LoginService {
 		return false;
 	}
 
+	public String logout(HttpServletResponse res) {
+		//
+		CookieBox.logout(res);
+		return "redirect:/loginForm";
+	}
+
 }

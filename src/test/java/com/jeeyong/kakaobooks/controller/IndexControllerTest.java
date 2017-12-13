@@ -1,5 +1,7 @@
 package com.jeeyong.kakaobooks.controller;
 
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -37,6 +39,8 @@ public class IndexControllerTest {
 
 		Model model = new ExtendedModelMap();
 		String result = indexController.index(req, res, model);
-		logger.info("result === " + result);
+		logger.info("result = " + result);
+		Map<String, Object> modelAsMap = model.asMap();
+
 	}
 }

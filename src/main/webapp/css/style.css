@@ -1,1 +1,3 @@
-#books .list-group-item dl dd {display:none;}
+nav {text-align: right;}
+#books .list-group-item dl dd {display:none; clear: both}
+#books .list-group-item dl dd .left {float: left; width: 110px;}

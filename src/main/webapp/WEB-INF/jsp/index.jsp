@@ -12,6 +12,7 @@
 </head>
 <body>
 	<div class="container">
+		<%@ include file="/include/gnb.jsp" %>
 		<h1>카카오 책 검색 API</h1>
 		<div class="row">
 			<div class="col-12">
@@ -38,15 +39,19 @@
 		<hr>
 		<h2>책 리스트 </h2>
 		<div class="row">
-			<div id="books">
-				<ul class="list-group">
-				</ul>
-				<div id="resultMessage" class="alert" role="alert" style="display: none;">검색된 책이 없습니다.</div>
+			<div class="col-12">
+				<div id="books">
+					<ul class="list-group">
+					</ul>
+					<div id="resultMessage" class="alert" role="alert" style="display: none;">검색된 책이 없습니다.</div>
+				</div>
 			</div>
 		</div>
 		<hr>
 	</div>
 <script type="text/javascript">
+
+
 function submitSearch(page){
 	var pg = page?page:1;
 	var frm = document.search_form;
@@ -65,7 +70,7 @@ function submitSearch(page){
 					$("#books > #resultMessage").hide();
 					var html = "";
 					$(res.documents).each(function(idx){
-						var authors = "", trans="",thumbnail="";
+						var authors = "", trans="",thumbnail="",isbn="";
 						$(this.authors).each(function(){
 							authors+= (this+" ")
 						});
@@ -75,10 +80,11 @@ function submitSearch(page){
 						if(this.thumbnail) {
 							thumbnail = "<img src='"+this.thumbnail+"' width='100'>";
 						}
+						isbn = this.isbn.split(" ")[0]
 						
 						html+="<li class='list-group-item'>";
-						html+="<dl><dt>"+this.title+" | "+this.publisher+" <a href='#'>bookmark</a></dt>";
-						html+="<dd>"+thumbnail+" 저자: "+authors+"<br> 번역자: "+trans+"<br> 상태: "+this.status+" </dd></dl></li>";
+						html+="<dl><dt><a href='./detail?isbn="+isbn+"'>"+this.title+" | "+this.publisher+"</a></dt>";
+						html+="<dd><div class='left'>"+thumbnail+"</div><div class='right'>저자: "+authors+"<br> 번역자: "+trans+"<br> 상태: "+this.status+"</div></dd></dl></li>";
 					});
 					if(!res.meta.is_end){
 						html+="<li><button onclick='submitSearch("+(pg+1)+"); $(this).parent().remove();'>더보기 </button></li>";
@@ -103,6 +109,24 @@ function submitSearch(page){
 	return false;
 }
 
+function btnBookmark(){
+	var ISBN = $(this).data("isbn");
+	$.ajax({
+		url : "/ajax/bookmark",
+		data : $(frm).serialize(),
+		success : function( res ){
+			
+			console.log(res);
+		},
+		error : function( res){
+			console.log(res);
+			alert( res );
+		}, 
+		complete: function(){
+		}
+	});
+}
+
 $(document).ready(function(){
 	$("#books > .list-group").on("mouseenter", ".list-group-item",function(){
 		$(this).find("dd").show();
@@ -110,6 +134,7 @@ $(document).ready(function(){
 	$("#books > .list-group").on("mouseleave", ".list-group-item",function(){
 		$(this).find("dd").hide();
 	});
+	$("#books > .list-group").on("click", "btn-book-mark", btnBookmark);
 });
 </script>
 </body>

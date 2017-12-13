@@ -37,4 +37,10 @@ public class LoginController {
 		return "login/loginForm";
 	}
 
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest req, HttpServletResponse res) {
+
+		return loginService.logout(res);
+	}
+
 }

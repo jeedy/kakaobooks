@@ -19,6 +19,9 @@ public class Bookmark {
 	private Long id;
 
 	@Column(nullable = false)
+	private String isbn;
+
+	@Column(nullable = false)
 	private Timestamp regdate;
 
 	@ManyToOne(optional = false)
@@ -30,10 +33,42 @@ public class Bookmark {
 
 	}
 
-	public Bookmark(Long id, Timestamp regdate, Member member) {
+	public Bookmark(String isbn, Timestamp regdate, Member member) {
 		super();
-		this.id = id;
+		this.isbn = isbn;
 		this.regdate = regdate;
+		this.member = member;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public Timestamp getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(Timestamp regdate) {
+		this.regdate = regdate;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
 		this.member = member;
 	}
 

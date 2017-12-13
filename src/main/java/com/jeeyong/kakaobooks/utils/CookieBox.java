@@ -61,6 +61,8 @@ public class CookieBox {
 	public static final void logout(HttpServletResponse res) {
 		//
 		delCookie(res, "account_site");
+		delCookie(res, "timeStamp_site");
+		delCookie(res, "validChecker_site");
 	}
 
 	/**
