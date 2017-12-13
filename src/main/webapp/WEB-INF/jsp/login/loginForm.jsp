@@ -1,36 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!doctype html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>login 페이</title>
-<link rel="stylesheet" type="text/css" href="/css/style.css">
-</head>
-<body>
-	<%-- <fieldset>
-		<legend>로그인</legend>
-		
-		<form action="/loginForm" method="POST">
-			<input type="text" name="account" value="" class="${param.resultCode?'error':'' }">
-			<input type="password" name="pwd" value="" class="${param.resultCode?'error':'' }">
-			<button type="submit">로그인</button>
-		</form>
-	</fieldset> --%>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<title>Books search - login</title>
 	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	</head>
+<body class="login">
 	<div class="container">
-	  <div class="alert" style="${param.resultCode?'display:block':'display:none'}">잘못된 아이디입니다.</div>
       <form class="form-signin" action="/loginForm" method="POST">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputAcount" class="sr-only">Email address</label>
-        <input type="text" id="inputAcount" name="account" class="form-control" placeholder="account" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" name="pwd" class="form-control" placeholder="Password" required>
-        <!-- <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div> -->
-        <button class="btn btn-lg btn-primary btn-block" type="submit">로그인 </button>
+        <h2 class="form-signin-heading">Books search</h2>
+        <label for="inputAcount" class="sr-only">사용자계정</label>
+        <input type="text" id="inputAcount" name="account" class="form-control" placeholder="Account" required autofocus />
+        <label for="inputPassword" class="sr-only">패스워드</label>
+        <input type="password" id="inputPassword" name="pwd" class="form-control" placeholder="Password" required />
+	    <div class="error-message alert ${resultCode}" style="">계정정보가 정확하지 않습니다. 다시 입력해주세요.</div>
+        
+        <button class="btn btn-lg btn-block" type="submit">로그인 </button>
       </form>
 
     </div> <!-- /container -->
