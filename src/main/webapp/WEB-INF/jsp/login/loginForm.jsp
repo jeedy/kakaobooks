@@ -14,12 +14,12 @@
 <body class="login">
 	<div class="container">
       <form class="form-signin" action="/loginForm" method="POST">
-        <h2 class="form-signin-heading">Books search</h2>
+        <h2 class="form-signin-heading">Books search by Kakao</h2>
         <label for="inputAcount" class="sr-only">사용자계정</label>
         <input type="text" id="inputAcount" name="account" class="form-control" placeholder="Account" required autofocus />
         <label for="inputPassword" class="sr-only">패스워드</label>
         <input type="password" id="inputPassword" name="pwd" class="form-control" placeholder="Password" required />
-	    <div class="error-message alert ${resultCode}" style="">계정정보가 정확하지 않습니다. 다시 입력해주세요.</div>
+	    <div class="error-message alert text-danger ${resultCode}" style="">계정정보가 정확하지 않습니다. 다시 입력해주세요.</div>
         
         <button class="btn btn-lg btn-block" type="submit">로그인 </button>
       </form>

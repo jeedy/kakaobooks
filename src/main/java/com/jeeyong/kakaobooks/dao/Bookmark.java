@@ -1,6 +1,6 @@
 package com.jeeyong.kakaobooks.dao;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +22,10 @@ public class Bookmark {
 	private String isbn;
 
 	@Column(nullable = false)
-	private Timestamp regdate;
+	private String title;
+
+	@Column(nullable = false)
+	private LocalDateTime regdate;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "member_account")
@@ -31,13 +34,6 @@ public class Bookmark {
 	public Bookmark() {
 		super();
 
-	}
-
-	public Bookmark(String isbn, Timestamp regdate, Member member) {
-		super();
-		this.isbn = isbn;
-		this.regdate = regdate;
-		this.member = member;
 	}
 
 	public Long getId() {
@@ -56,11 +52,11 @@ public class Bookmark {
 		this.isbn = isbn;
 	}
 
-	public Timestamp getRegdate() {
+	public LocalDateTime getRegdate() {
 		return regdate;
 	}
 
-	public void setRegdate(Timestamp regdate) {
+	public void setRegdate(LocalDateTime regdate) {
 		this.regdate = regdate;
 	}
 
@@ -69,6 +65,22 @@ public class Bookmark {
 	}
 
 	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Bookmark(String title, String isbn, LocalDateTime regdate, Member member) {
+		super();
+		this.title = title;
+		this.isbn = isbn;
+		this.regdate = regdate;
 		this.member = member;
 	}
 

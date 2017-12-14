@@ -67,6 +67,8 @@ public class WebConfiguration {
 			HttpServletRequest httpServletRequest = (HttpServletRequest) req;
 			HttpServletResponse httpServletResponse = (HttpServletResponse) res;
 
+			logger.debug(httpServletRequest.getRequestURI());
+
 			if (httpServletRequest.getRequestURI().startsWith("/WEB-INF/")
 					|| httpServletRequest.getRequestURI().startsWith("/css/")
 					|| httpServletRequest.getRequestURI().startsWith("/js/")

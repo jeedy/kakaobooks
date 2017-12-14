@@ -1,12 +1,15 @@
 package com.jeeyong.kakaobooks.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.jeeyong.kakaobooks.enums.EnumBookCategory;
+import com.jeeyong.kakaobooks.enums.EnumBookTarget;
 import com.jeeyong.kakaobooks.utils.JsonUtils;
 import com.jeeyong.kakaobooks.utils.Utils;
 
@@ -39,6 +42,27 @@ public class ApiService {
 			e.printStackTrace();
 		}
 		return resultData;
+	}
+
+	/**
+	 * 책 정보 가져오기
+	 * 
+	 * 데이터 참조 :
+	 * https://developers.kakao.com/docs/restapi/search#%EC%B1%85-%EA%B2%80%EC%83%89
+	 * 
+	 * @param ISBN
+	 * @return JSON -> Map<String,Object>
+	 */
+	public Map<String, Object> getBookByISBN(String ISBN) {
+		Map<String, Object> book = null;
+		Map<String, Object> json = this.searchBooks(ISBN, EnumBookTarget.전체.getCode(), EnumBookCategory.전체.getCode(),
+				1);
+		int cnt = (Integer) ((Map) json.get("meta")).get("total_count");
+		logger.info("cnt=" + cnt);
+		if (cnt > 0) {
+			book = (Map) ((List) json.get("documents")).get(0);
+		}
+		return book;
 	}
 
 }

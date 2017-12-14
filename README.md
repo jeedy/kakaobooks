@@ -11,6 +11,10 @@
 1. Database - h2 (maven dependency)
 1. code style - google code style
 
+### 추가 모듈(라이브러리)
+1. http-client 
+1. 
+
 ### 설치
 
 <https://github.com/jeedy/kakaobooks.git>
