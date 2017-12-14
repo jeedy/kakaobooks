@@ -1,7 +1,5 @@
 package com.jeeyong.kakaobooks.controller;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +16,7 @@ import com.jeeyong.kakaobooks.dao.Bookmark;
 import com.jeeyong.kakaobooks.dao.Member;
 import com.jeeyong.kakaobooks.enums.EnumBookCategory;
 import com.jeeyong.kakaobooks.enums.EnumBookTarget;
+import com.jeeyong.kakaobooks.exceptions.IllegalLoginException;
 import com.jeeyong.kakaobooks.service.BookmarkService;
 import com.jeeyong.kakaobooks.service.MemberService;
 import com.jeeyong.kakaobooks.utils.CookieBox;
@@ -33,45 +32,53 @@ public class IndexController {
 	@Autowired
 	BookmarkService bookmarkService;
 
-	private Member loginCheck(HttpServletRequest req, HttpServletResponse res) {
+	private Member loginCheck(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String account = CookieBox.getAccount(req);
 		Member member = memberService.getMember(account);
 		if (member == null) {
-			try {
-				res.sendRedirect("/loginForm");
-			} catch (IOException e) {
-			}
-
-			return null;
+			throw new IllegalLoginException("로그인 되지 않았습니다.");
 		}
 		return member;
 	}
 
 	@RequestMapping("/")
 	public String index(HttpServletRequest req, HttpServletResponse res, Model model) {
-		Member member = loginCheck(req, res);
+		try {
+			Member member = loginCheck(req, res);
 
-		model.addAttribute("EnumTarget", EnumBookTarget.values());
-		model.addAttribute("EnumCategory", EnumBookCategory.values());
+			model.addAttribute("EnumTarget", EnumBookTarget.values());
+			model.addAttribute("EnumCategory", EnumBookCategory.values());
+			return "/index";
+		} catch (Exception e) {
+			return "redirect:/loginForm";
+		}
 
-		return "/index";
 	}
 
 	@RequestMapping("/detail")
 	public String detail(HttpServletRequest req, HttpServletResponse res, Model model,
 			@RequestParam("isbn") String isbn) {
-		Member member = loginCheck(req, res);
+		try {
+			Member member = loginCheck(req, res);
 
-		Bookmark bookmark = bookmarkService.getBookmark(member, isbn);
-		model.addAttribute("bookmark", bookmark);
-		return "/detail";
+			Bookmark bookmark = bookmarkService.getBookmark(member, isbn);
+			model.addAttribute("bookmark", bookmark);
+			return "/detail";
+		} catch (Exception e) {
+			return "redirect:/loginForm";
+		}
 	}
 
 	@RequestMapping("/mypage")
 	public String mypage(HttpServletRequest req, HttpServletResponse res, Model model) {
-		Member member = loginCheck(req, res);
+		try {
+			Member member = loginCheck(req, res);
 
-		return "/mypage";
+			return "/mypage";
+		} catch (Exception e) {
+			return "redirect:/loginForm";
+		}
+
 	}
 
 }
