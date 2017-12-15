@@ -1,6 +1,8 @@
 package com.jeeyong.kakaobooks.service;
 
-import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -13,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jeeyong.kakaobooks.dao.Member;
 import com.jeeyong.kakaobooks.utils.CookieBox;
 import com.jeeyong.kakaobooks.utils.CryptEncoding;
-import com.jeeyong.kakaobooks.utils.SU;
 
 @Service
 public class LoginService {
@@ -23,16 +24,13 @@ public class LoginService {
 	MemberService memberService;
 
 	@Transactional
-	public boolean login(HttpServletRequest req, HttpServletResponse res) {
+	public boolean login(HttpServletResponse res, String account, String pwd) {
 		//
-		String account = SU.getStringParameter(req, "account", "").trim();
-		String pwd = SU.getStringParameter(req, "pwd", "").trim();
-
 		Member member = memberService.getMember(account);
 		if (!account.isEmpty() && !pwd.isEmpty()) {
 			PasswordEncoder passwordEncoder = new CryptEncoding();
 			if (member == null) { // 계정없는 경우 신규생성
-				member = new Member(account, passwordEncoder.encode(pwd));
+				member = new Member(account, passwordEncoder.encode(pwd), Timestamp.valueOf(LocalDateTime.now()));
 				memberService.save(member);
 				CookieBox.login(res, account);
 				return true;

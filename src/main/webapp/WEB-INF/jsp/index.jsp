@@ -123,7 +123,9 @@
 																+ this.title
 																+ " | "
 																+ this.publisher
-																+ "</a></dt>";
+																+ "</a>"
+																+" <button type='button' class='btn btn-primary btn-bookmark add' data-isbn='"+isbn+"'>북마크</button>"
+																+"</dt>";
 														html += "<dd><div class='left'>"
 																+ thumbnail
 																+ "</div><div class='right'>저자: "
@@ -160,18 +162,24 @@
 		}
 
 		function btnBookmark() {
-			var ISBN = $(this).data("isbn");
+			const $this = $(this);
+			const ISBN = $this.data("isbn");
 			$.ajax({
 				url : "/ajax/bookmark",
-				data : $(frm).serialize(),
+				method: "POST",
+				data : {
+					"isbn" : ISBN
+				},
 				success : function(res) {
 					console.log(res);
+					alert("북마크 되었습니다.");
 				},
 				error : function(res) {
 					console.log(res);
-					alert(res);
+					alert(res); 
 				},
 				complete : function() {
+					$this.prop( "disabled", true );
 				}
 			});
 		}
@@ -186,8 +194,8 @@
 							".list-group-item", function() {
 								$(this).find("dd").hide();
 							});
-					$("#books > .list-group").on("click", "btn-book-mark",
-							btnBookmark);
+					
+					$("#books > .list-group").on("click", ".btn-bookmark.add", btnBookmark);
 				});
 	</script>
 </body>

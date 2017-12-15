@@ -2,6 +2,7 @@ package com.jeeyong.kakaobooks.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,5 +20,8 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
 		}
 		return null;
 	}
+
+	@Query("SELECT b FROM Bookmark b WHERE b.member=?1")
+	Page<Bookmark> findByMember(Member member, Pageable paeable);
 
 }

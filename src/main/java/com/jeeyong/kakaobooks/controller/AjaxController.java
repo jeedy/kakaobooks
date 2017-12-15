@@ -21,7 +21,6 @@ import com.jeeyong.kakaobooks.service.ApiService;
 import com.jeeyong.kakaobooks.service.BookmarkService;
 import com.jeeyong.kakaobooks.service.MemberService;
 import com.jeeyong.kakaobooks.utils.CookieBox;
-import com.jeeyong.kakaobooks.utils.SU;
 
 @RestController
 @RequestMapping("ajax/")
@@ -45,11 +44,9 @@ public class AjaxController {
 	 * @return
 	 */
 	@RequestMapping(value = "/searchBooks")
-	public Map<String, Object> searchBooks(HttpServletRequest req, HttpServletResponse res) {
-		String searchWord = SU.getStringParameter(req, "searchWord", "");
-		String target = SU.getStringParameter(req, "target", "");
-		String category = SU.getStringParameter(req, "category", "");
-		int page = SU.getIntParameter(req, "page", 1);
+	public Map<String, Object> searchBooks(HttpServletRequest req, HttpServletResponse res,
+			@RequestParam("searchWord") String searchWord, @RequestParam("target") String target,
+			@RequestParam("category") String category, @RequestParam(name = "page", defaultValue = "1") int page) {
 
 		Map<String, Object> result = apiService.searchBooks(searchWord, target, category, page);
 

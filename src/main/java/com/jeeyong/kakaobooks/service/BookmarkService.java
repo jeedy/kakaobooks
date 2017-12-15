@@ -1,5 +1,6 @@
 package com.jeeyong.kakaobooks.service;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -8,6 +9,8 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.jeeyong.kakaobooks.controller.AjaxController;
@@ -42,12 +45,11 @@ public class BookmarkService {
 			return false;
 		}
 
-		LocalDateTime dateTime = LocalDateTime.now();
 		Bookmark bookmark = new Bookmark();
 		bookmark.setTitle(map_book.get("title").toString());
 		bookmark.setMember(member);
 		bookmark.setIsbn(isbn);
-		bookmark.setRegdate(dateTime);
+		bookmark.setRegdate(Timestamp.valueOf(LocalDateTime.now()));
 
 		bookmarkRepository.save(bookmark);
 
@@ -62,6 +64,12 @@ public class BookmarkService {
 			return true;
 		}
 		return false;
+	}
+
+	@Transactional
+	public Page<Bookmark> findByMember(Member member, Pageable pageable) {
+		//
+		return bookmarkRepository.findByMember(member, pageable);
 	}
 
 }

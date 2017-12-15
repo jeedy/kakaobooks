@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeeyong.kakaobooks.service.LoginService;
-import com.jeeyong.kakaobooks.utils.SU;
 
 @Controller
 public class LoginController {
@@ -21,13 +21,13 @@ public class LoginController {
 	LoginService loginService;
 
 	@RequestMapping("/loginForm")
-	public String index(HttpServletRequest req, HttpServletResponse res, Model model) {
-		String account = SU.getStringParameter(req, "account", "").trim();
-		String pwd = SU.getStringParameter(req, "pwd", "").trim();
+	public String index(HttpServletRequest req, HttpServletResponse res, Model model,
+			@RequestParam(name = "account", defaultValue = "") String account,
+			@RequestParam(name = "pwd", defaultValue = "") String pwd) {
 
 		if (account.isEmpty() && pwd.isEmpty()) {
 		} else {
-			if (loginService.login(req, res)) {
+			if (loginService.login(res, account, pwd)) {
 				return "redirect:/";
 			} else {
 				model.addAttribute("resultCode", "fail");

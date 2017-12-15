@@ -73,3 +73,22 @@ body.login {
 	color: white;
 	padding: 21px 0px;
 }
+
+.paging-layout {
+	text-align: center;
+}
+
+.paging-layout .pagination {
+	
+}
+
+.paging-layout .pagination li {
+	padding: 5px 5px;
+}
+.paging-layout .pagination li.disabled a{
+	color: #e9e9e9;
+}
+.paging-layout .pagination li.active a{
+	font-size: 1.1em;
+	color: gray;
+}

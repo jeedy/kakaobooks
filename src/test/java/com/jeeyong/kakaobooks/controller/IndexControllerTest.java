@@ -1,5 +1,7 @@
 package com.jeeyong.kakaobooks.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.junit.Test;
@@ -32,7 +34,7 @@ public class IndexControllerTest {
 	@Test
 	public void testController() {
 
-		memberService.save(new Member("test", "1234"));
+		memberService.save(new Member("test", "1234", Timestamp.valueOf(LocalDateTime.now())));
 
 		MockHttpServletRequest req = new MockHttpServletRequest();
 		MockHttpServletResponse res = new MockHttpServletResponse();

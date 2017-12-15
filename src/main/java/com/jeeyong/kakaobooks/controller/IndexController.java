@@ -7,6 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +36,7 @@ public class IndexController {
 	@Autowired
 	BookmarkService bookmarkService;
 
-	private Member loginCheck(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	private Member getMemberObj(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String account = CookieBox.getAccount(req);
 		Member member = memberService.getMember(account);
 		if (member == null) {
@@ -44,12 +48,13 @@ public class IndexController {
 	@RequestMapping("/")
 	public String index(HttpServletRequest req, HttpServletResponse res, Model model) {
 		try {
-			Member member = loginCheck(req, res);
+			Member member = getMemberObj(req, res);
 
 			model.addAttribute("EnumTarget", EnumBookTarget.values());
 			model.addAttribute("EnumCategory", EnumBookCategory.values());
 			return "/index";
 		} catch (Exception e) {
+			logger.info(e.getMessage());
 			return "redirect:/loginForm";
 		}
 
@@ -59,23 +64,41 @@ public class IndexController {
 	public String detail(HttpServletRequest req, HttpServletResponse res, Model model,
 			@RequestParam("isbn") String isbn) {
 		try {
-			Member member = loginCheck(req, res);
+			Member member = getMemberObj(req, res);
 
 			Bookmark bookmark = bookmarkService.getBookmark(member, isbn);
 			model.addAttribute("bookmark", bookmark);
 			return "/detail";
 		} catch (Exception e) {
+			logger.info(e.getMessage());
 			return "redirect:/loginForm";
 		}
+	}
+
+	@RequestMapping("/bookmarks")
+	public String bookmarks(HttpServletRequest req, HttpServletResponse res, Model model,
+			@PageableDefault(size = 10, page = 0, sort = "regdate", direction = Direction.ASC) Pageable pageable) {
+		try {
+			Member member = getMemberObj(req, res);
+
+			Page<Bookmark> bookmarkPage = bookmarkService.findByMember(member, pageable);
+			model.addAttribute("bookmarkPage", bookmarkPage);
+			return "/bookmarks";
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			return "redirect:/loginForm";
+		}
+
 	}
 
 	@RequestMapping("/mypage")
 	public String mypage(HttpServletRequest req, HttpServletResponse res, Model model) {
 		try {
-			Member member = loginCheck(req, res);
+			Member member = getMemberObj(req, res);
 
 			return "/mypage";
 		} catch (Exception e) {
+			logger.info(e.getMessage());
 			return "redirect:/loginForm";
 		}
 

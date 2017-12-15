@@ -58,7 +58,6 @@ public class ApiService {
 		Map<String, Object> json = this.searchBooks(ISBN, EnumBookTarget.전체.getCode(), EnumBookCategory.전체.getCode(),
 				1);
 		int cnt = (Integer) ((Map) json.get("meta")).get("total_count");
-		logger.info("cnt=" + cnt);
 		if (cnt > 0) {
 			book = (Map) ((List) json.get("documents")).get(0);
 		}
