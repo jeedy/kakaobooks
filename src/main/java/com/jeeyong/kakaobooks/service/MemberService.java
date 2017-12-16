@@ -10,8 +10,9 @@ import com.jeeyong.kakaobooks.dao.MemberRepository;
 
 @Service
 public class MemberService {
-	@Autowired MemberRepository memberRepository;
-	
+	@Autowired
+	MemberRepository memberRepository;
+
 	@Transactional
 	public Member getMember(String account) {
 		return memberRepository.findOne(account);
@@ -21,6 +22,5 @@ public class MemberService {
 	public void save(Member member) {
 		memberRepository.save(member);
 	}
-	
-	
+
 }

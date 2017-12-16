@@ -7,8 +7,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PasswordEncodingTest {
-	private static final Logger logger = LoggerFactory.getLogger(PasswordEncodingTest.class);
+public class CryptEncodingTest {
+	private static final Logger logger = LoggerFactory.getLogger(CryptEncodingTest.class);
 
 	@Test
 	public void test() {

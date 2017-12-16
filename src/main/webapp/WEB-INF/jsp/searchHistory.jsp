@@ -40,10 +40,10 @@
 					<c:forEach var="b" items="${searchHistoryPage.content }">
 						<li class="list-group-item"><dl>
 								<dt>
-									<span>검색필드: ${b._target }, 카테고리: ${b._category }</span>
+									검색어: ${b.search_word }
 								</dt>
 								<dd>
-									검색어: <a href="./detail?isbn=9791158390785">${b.search_word }</a>
+									<span>검색필드: ${b._target }, 카테고리: ${b._category }</span>
 									<span class="blockquote-footer text-right"><fmt:formatDate value="${b.regdate }" pattern="yyyy. MM. dd HH:mm:ss"/></span>
 								</dd>
 							</dl></li>

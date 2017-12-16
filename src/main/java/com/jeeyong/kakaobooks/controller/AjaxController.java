@@ -53,8 +53,10 @@ public class AjaxController {
 	 */
 	@RequestMapping(value = "/searchBooks")
 	public Map<String, Object> searchBooks(HttpServletRequest req, HttpServletResponse res,
-			@RequestParam("searchWord") String searchWord, @RequestParam("target") String target,
-			@RequestParam("category") String category, @RequestParam(name = "page", defaultValue = "1") int page) {
+			@RequestParam("searchWord") String searchWord,
+			@RequestParam(name = "target", defaultValue = "all") String target,
+			@RequestParam(name = "category", defaultValue = "") String category,
+			@RequestParam(name = "page", defaultValue = "1") int page) {
 
 		String account = CookieBox.getAccount(req);
 		Member member = memberService.getMember(account);
