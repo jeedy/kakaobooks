@@ -8,9 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jeeyong.kakaobooks.enums.EnumBookCategory;
 import com.jeeyong.kakaobooks.enums.EnumBookTarget;
-import com.jeeyong.kakaobooks.utils.JsonUtils;
 import com.jeeyong.kakaobooks.utils.Utils;
 
 @Service
@@ -32,8 +33,12 @@ public class ApiService {
 		Map<String, Object> resultData = null;
 		try {
 			jsonString = Utils.getHttpPOST2String(URL, headers, params, false);
+			ObjectMapper mapper = new ObjectMapper();
+			resultData = mapper.readValue(jsonString, new TypeReference<Map<String, Object>>() {
+			});
+
 			logger.debug(URL + " - get API Info : " + jsonString);
-			resultData = JsonUtils.readJsonToStringObjectUnparse(jsonString);
+			// resultData = JsonUtils.readJsonToStringObjectUnparse(jsonString);
 
 		} catch (Exception e) {
 			logger.info(URL + " - get API Exception : " + jsonString);

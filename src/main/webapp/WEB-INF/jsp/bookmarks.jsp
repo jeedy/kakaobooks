@@ -36,12 +36,15 @@
 					</div>
 				</form>
 				<ul class="list-group">
+					<c:if test="${empty bookmarkPage.content }">
+					<li>empty data.</li>
+					</c:if>
 					<c:forEach var="b" items="${bookmarkPage.content }">
 						<li class="list-group-item"><dl>
 								<dt>
 									<a href="./detail?isbn=9791158390785">${b.title }</a> | 
 									<span><fmt:formatDate value="${b.regdate }" pattern="yyyy. MM. dd HH:mm:ss"/></span>
-									<button type="button" class="btn btn-light btn-bookmark delete">북마크 취소</button>
+									<button type="button" class="btn btn-light btn-bookmark delete" data-isbn="">북마크 취소</button>
 								</dt>
 							</dl></li>
 					</c:forEach>
@@ -54,6 +57,30 @@
 
 	<script type="text/javascript" src="/js/jquery.bootpag.min.js"></script>
 	<script type="text/javascript">
+
+		function btnUnbookmark() {
+			const $this = $(this);
+			const ISBN = $this.data("isbn");
+			$.ajax({
+				url : "/ajax/unbookmark",
+				method: "POST",
+				data : {
+					"isbn" : ISBN
+				},
+				success : function(res) {
+					console.log(res);
+					alert("취소되었습니다.");
+				},
+				error : function(res) {
+					console.log(res);
+					alert(res);
+				},
+				complete : function() {
+					$this.prop( "disabled", true );
+				}
+			});
+		}
+	
 		$(document).ready(function() {
 			
 			$('.paging-layout').bootpag({
