@@ -19,21 +19,10 @@
 
 <https://github.com/jeedy/kakaobooks.git>
 
-1. <https://github.com/jeedy/kakaobooks.git> 에서 `Fork` 버튼 클릭하고,
-2. 포크 저장소 계정 선택
-3. git fetch or pull or clone
-4. 포크 설정 [Configuring a remote for a fork](https://help.github.com/articles/configuring-a-remote-for-a-fork/)
-5. 포크 동기화 [Syncing a fork](https://help.github.com/articles/syncing-a-fork/)
-6. 
-
 ```console
-$ git clone git@github.com:YOUR_GITHUB_ACCOUNT/kakaobooks.git
+$ git clone https://github.com/jeedy/kakaobooks.git
 $ cd kakaobooks
-$ git remote add upstream git@github.com:jeedy/kakaobooks.git
-$ git fetch upstream
-$ git checkout master
-$ git merge upstream/master
-$ 
+
 ```
 
 ### 실행(로컬)

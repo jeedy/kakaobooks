@@ -31,14 +31,12 @@ public class ApiService {
 		String jsonString = null;
 		Map<String, Object> resultData = null;
 		try {
-			logger.debug(URL);
-
 			jsonString = Utils.getHttpPOST2String(URL, headers, params, false);
-			logger.debug("get API Info : " + jsonString);
+			logger.debug(URL + " - get API Info : " + jsonString);
 			resultData = JsonUtils.readJsonToStringObjectUnparse(jsonString);
 
 		} catch (Exception e) {
-			logger.info("get API Exception : " + jsonString);
+			logger.info(URL + " - get API Exception : " + jsonString);
 			e.printStackTrace();
 		}
 		return resultData;
