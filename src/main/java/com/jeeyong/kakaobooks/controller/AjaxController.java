@@ -1,5 +1,7 @@
 package com.jeeyong.kakaobooks.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,17 +17,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jeeyong.kakaobooks.dao.Member;
+import com.jeeyong.kakaobooks.dao.SearchHistory;
 import com.jeeyong.kakaobooks.enums.EnumBookCategory;
 import com.jeeyong.kakaobooks.enums.EnumBookTarget;
 import com.jeeyong.kakaobooks.service.ApiService;
 import com.jeeyong.kakaobooks.service.BookmarkService;
 import com.jeeyong.kakaobooks.service.MemberService;
+import com.jeeyong.kakaobooks.service.SearchHistoryService;
 import com.jeeyong.kakaobooks.utils.CookieBox;
 
 @RestController
 @RequestMapping("ajax/")
 public class AjaxController {
 	private static final Logger logger = LoggerFactory.getLogger(AjaxController.class);
+
 	@Autowired
 	ApiService apiService;
 
@@ -34,6 +39,9 @@ public class AjaxController {
 
 	@Autowired
 	BookmarkService bookmarkService;
+
+	@Autowired
+	SearchHistoryService searchHistoryService;
 
 	/**
 	 * 책 검색 restAPI
@@ -48,7 +56,11 @@ public class AjaxController {
 			@RequestParam("searchWord") String searchWord, @RequestParam("target") String target,
 			@RequestParam("category") String category, @RequestParam(name = "page", defaultValue = "1") int page) {
 
+		String account = CookieBox.getAccount(req);
+		Member member = memberService.getMember(account);
 		Map<String, Object> result = apiService.searchBooks(searchWord, target, category, page);
+		searchHistoryService
+				.save(new SearchHistory(searchWord, target, category, Timestamp.valueOf(LocalDateTime.now()), member));
 
 		//
 		return result;

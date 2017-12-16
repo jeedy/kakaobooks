@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeeyong.kakaobooks.dao.Bookmark;
 import com.jeeyong.kakaobooks.dao.Member;
+import com.jeeyong.kakaobooks.dao.SearchHistory;
 import com.jeeyong.kakaobooks.enums.EnumBookCategory;
 import com.jeeyong.kakaobooks.enums.EnumBookTarget;
 import com.jeeyong.kakaobooks.exceptions.IllegalLoginException;
 import com.jeeyong.kakaobooks.service.BookmarkService;
 import com.jeeyong.kakaobooks.service.MemberService;
+import com.jeeyong.kakaobooks.service.SearchHistoryService;
 import com.jeeyong.kakaobooks.utils.CookieBox;
 
 @Controller
@@ -35,6 +37,9 @@ public class IndexController {
 
 	@Autowired
 	BookmarkService bookmarkService;
+
+	@Autowired
+	SearchHistoryService searchHistoryService;
 
 	private Member getMemberObj(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String account = CookieBox.getAccount(req);
@@ -91,12 +96,15 @@ public class IndexController {
 
 	}
 
-	@RequestMapping("/mypage")
-	public String mypage(HttpServletRequest req, HttpServletResponse res, Model model) {
+	@RequestMapping("/searchHistory")
+	public String searchHistory(HttpServletRequest req, HttpServletResponse res, Model model,
+			@PageableDefault(size = 10, page = 0, sort = "regdate", direction = Direction.DESC) Pageable pageable) {
 		try {
 			Member member = getMemberObj(req, res);
 
-			return "/mypage";
+			Page<SearchHistory> searchHistoryPage = searchHistoryService.findByMember(member, pageable);
+			model.addAttribute("searchHistoryPage", searchHistoryPage);
+			return "/searchHistory";
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			return "redirect:/loginForm";

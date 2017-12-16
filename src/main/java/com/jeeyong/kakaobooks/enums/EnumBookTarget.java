@@ -19,4 +19,17 @@ public enum EnumBookTarget {
 	public String getCode() {
 		return code;
 	}
+
+	public static EnumBookTarget getByCode(String code) {
+		EnumBookTarget returnValue = null;
+
+		for (EnumBookTarget temp : EnumBookTarget.values()) {
+			if (temp.getCode().equals(code)) {
+				returnValue = temp;
+				break;
+			}
+		}
+
+		return returnValue;
+	}
 }

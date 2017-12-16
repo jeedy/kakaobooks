@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>북마크 - Kakao books search</title>
+<title>검색 히스토리 - Kakao books search</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -20,32 +20,30 @@
 	<div class="container mt-3">
 		<div class="row">
 			<div class="col list-bookmark">
-				<h3>북마크 리스트</h3>
-				<form action="./bookmarks" id="searchForm" name="searchForm" method="get">
-					<input type="hidden" name="page" value="${bookmarkPage.number}">
-					<input type="hidden" name="size" value="${bookmarkPage.size }">
+				<h3>검색 히스토리</h3>
+				<form action="./searchHistory" id="searchForm" name="searchForm" method="get">
+					<input type="hidden" name="page" value="${searchHistoryPage.number}">
+					<input type="hidden" name="size" value="${searchHistoryPage.size }">
 					<div class="form-row">
 						<div class="form-group">
 							<select id="select-sort" name="sort" class="form-control">
-								<option value="regdate,asc" ${param.sort=='regdate,asc'?'selected="selected"':'' }>시간순 </option>
-								<option value="title,asc" ${param.sort=='title,asc'?'selected="selected"':'' }>이름순 </option>
 								<option value="regdate,desc" ${param.sort=='regdate,desc'?'selected="selected"':'' }>시간역순 </option>
-								<option value="title,desc" ${param.sort=='title,desc'?'selected="selected"':'' }>이름역순 </option>
+								<option value="regdate,asc" ${param.sort=='regdate,asc'?'selected="selected"':'' }>시간순 </option>
 							</select>
 						</div>
 					</div>
 				</form>
 				<ul class="list-group">
-					<c:if test="${empty bookmarkPage.content }">
-					<li>empty data.</li>
+					<c:if test="${empty searchHistoryPage.content }">
+						<li>empty data.</li>
 					</c:if>
-					<c:forEach var="b" items="${bookmarkPage.content }">
+					<c:forEach var="b" items="${searchHistoryPage.content }">
 						<li class="list-group-item"><dl>
 								<dt>
-									<a href="./detail?isbn=9791158390785">${b.title }</a>
-									<button type="button" class="btn btn-light btn-bookmark delete" data-isbn="${b.isbn }">북마크 취소</button>
+									<span>검색필드: ${b._target }, 카테고리: ${b._category }</span>
 								</dt>
 								<dd>
+									검색어: <a href="./detail?isbn=9791158390785">${b.search_word }</a>
 									<span class="blockquote-footer text-right"><fmt:formatDate value="${b.regdate }" pattern="yyyy. MM. dd HH:mm:ss"/></span>
 								</dd>
 							</dl></li>
@@ -63,7 +61,6 @@
 		function btnUnbookmark() {
 			const $this = $(this);
 			const ISBN = $this.data("isbn");
-			console.log(ISBN);
 			$.ajax({
 				url : "/ajax/unbookmark",
 				method: "POST",
@@ -85,31 +82,29 @@
 		}
 	
 		$(document).ready(function() {
-			<c:if test="${not empty bookmarkPage.content }">
-			$('.paging-layout').bootpag({
-			    total: ${bookmarkPage.totalPages},
-			    page: ${bookmarkPage.number+1},
-			    maxVisible: 10,
-			    leaps: true,
-			    firstLastUse: true,
-			    first: '←',
-			    last: '→',
-			    wrapClass: 'pagination',
-			    activeClass: 'active',
-			    disabledClass: 'disabled',
-			    nextClass: 'next',
-			    prevClass: 'prev',
-			    lastClass: 'last',
-			    firstClass: 'first'
-			}).on("page", function(event, num){
-				console.log(num);
-				var frm = document.searchForm
-				frm.page.value = num-1;
-				frm.submit();
-			});
+			<c:if test="${not empty searchHistoryPage.content }">
+				$('.paging-layout').bootpag({
+				    total: ${searchHistoryPage.totalPages},
+				    page: ${searchHistoryPage.number+1},
+				    maxVisible: 10,
+				    leaps: true,
+				    firstLastUse: true,
+				    first: '←',
+				    last: '→',
+				    wrapClass: 'pagination',
+				    activeClass: 'active',
+				    disabledClass: 'disabled',
+				    nextClass: 'next',
+				    prevClass: 'prev',
+				    lastClass: 'last',
+				    firstClass: 'first'
+				}).on("page", function(event, num){
+					console.log(num);
+					var frm = document.searchForm
+					frm.page.value = num-1;
+					frm.submit();
+				});
 			</c:if>
-			
-			$(".list-bookmark .list-group .list-group-item").on("click", ".btn-bookmark.delete",btnUnbookmark);
 		});
 		
 		$('#searchForm select[name=sort]').on('change',function(){

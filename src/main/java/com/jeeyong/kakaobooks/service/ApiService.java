@@ -16,6 +16,7 @@ import com.jeeyong.kakaobooks.utils.Utils;
 
 @Service
 public class ApiService {
+
 	private static final Logger logger = LoggerFactory.getLogger(ApiService.class);
 
 	private static final String API_REST_API_KEY = "a91743afc6e93942887ba8ec1449b565";

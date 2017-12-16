@@ -20,4 +20,16 @@ public enum EnumBookCategory {
 		return code;
 	}
 
+	public static EnumBookCategory getByCode(String code) {
+		EnumBookCategory returnValue = null;
+
+		for (EnumBookCategory temp : EnumBookCategory.values()) {
+			if (temp.getCode().equals(code)) {
+				returnValue = temp;
+				break;
+			}
+		}
+
+		return returnValue;
+	}
 }

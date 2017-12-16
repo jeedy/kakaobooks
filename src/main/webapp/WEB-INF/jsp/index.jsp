@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Kakao books search</title>
+<title>책 검색 - Kakao books search</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -35,7 +35,7 @@
 									<label for="select-target">검색 필드</label>
 									<select class="form-control" name="target">
 										<c:forEach var="t" items="${EnumTarget }">
-											<option>${t }</option>
+											<option value="${t.code }">${t }</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -54,7 +54,6 @@
 							</div>
 						</div>
 					</form>
-
 				</div>
 			</div>
 		</div>
