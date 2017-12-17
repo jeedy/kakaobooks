@@ -18,7 +18,7 @@ public class MemberRepositoryTest {
 	private MemberRepository memberRepository;
 
 	@Test
-	public void testMember() {
+	public void testInsertAndSelect() {
 		this.memberRepository.save(new Member("test", "1234", Timestamp.valueOf(LocalDateTime.now())));
 		Member member = this.memberRepository.findOne("test");
 		assertThat(member.getAccount()).isEqualTo("test");
