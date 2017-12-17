@@ -27,6 +27,7 @@ public class MemberRepositoryTest {
 	public void testInsertAndSelect() {
 		// 1. 회원 저장
 		this.memberRepository.save(new Member("test", "1234", Timestamp.valueOf(LocalDateTime.now())));
+
 		// 2. 회원 검색
 		Member member = this.memberRepository.findOne("test");
 		assertThat(member.getAccount()).isEqualTo("test");
