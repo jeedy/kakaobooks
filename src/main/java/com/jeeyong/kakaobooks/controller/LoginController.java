@@ -21,7 +21,7 @@ public class LoginController {
 	LoginService loginService;
 
 	@RequestMapping("/loginForm")
-	public String index(HttpServletRequest req, HttpServletResponse res, Model model,
+	public String loginForm(HttpServletRequest req, HttpServletResponse res, Model model,
 			@RequestParam(name = "account", defaultValue = "") String account,
 			@RequestParam(name = "pwd", defaultValue = "") String pwd) {
 

@@ -76,6 +76,15 @@ public class Bookmark {
 		this.title = title;
 	}
 
+	public Bookmark(Long id, String title, String isbn, Timestamp regdate, Member member) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.isbn = isbn;
+		this.regdate = regdate;
+		this.member = member;
+	}
+
 	public Bookmark(String title, String isbn, Timestamp regdate, Member member) {
 		super();
 		this.title = title;

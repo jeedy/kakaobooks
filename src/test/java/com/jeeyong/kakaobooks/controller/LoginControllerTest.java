@@ -32,15 +32,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import com.jeeyong.kakaobooks.dao.Bookmark;
-import com.jeeyong.kakaobooks.dao.Member;
-import com.jeeyong.kakaobooks.service.BookmarkService;
-import com.jeeyong.kakaobooks.service.MemberService;
+import com.jeeyong.kakaobooks.service.LoginService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class IndexControllerTest {
-	private static final Logger logger = LoggerFactory.getLogger(IndexControllerTest.class);
+public class LoginControllerTest {
+	private static final Logger logger = LoggerFactory.getLogger(LoginControllerTest.class);
 
 	@Autowired
 	private RequestMappingHandlerAdapter handlerAdapter;
@@ -48,10 +45,7 @@ public class IndexControllerTest {
 	private RequestMappingHandlerMapping handlerMapping;
 
 	@MockBean
-	private MemberService memberService;
-
-	@MockBean
-	private BookmarkService bookmarkService;
+	private LoginService loginService;
 
 	private MockHttpServletRequest req;
 	private MockHttpServletResponse res;
@@ -59,20 +53,8 @@ public class IndexControllerTest {
 	@Before
 	public void setUp() throws Exception {
 		//
-		Member member = new Member("test", "1234", Timestamp.valueOf(LocalDateTime.now()));
-		given(memberService.getMember(member.getAccount())).willReturn(member);
-
-		Bookmark bookmark = new Bookmark(1l, "테스트용 북마크된 책제목", "12341234", Timestamp.valueOf(LocalDateTime.now()),
-				member);
-		List<Bookmark> bookmarklist = new ArrayList<Bookmark>();
-		bookmarklist.add(bookmark);
-		Page<Bookmark> pageBookmark = new PageImpl<>(bookmarklist);
-		given(bookmarkService.getBookmark(member, "12341234")).willReturn(bookmark);
-		given(bookmarkService.findByMember(member, new PageRequest(0, 10))).willReturn(pageBookmark);
-
 		req = new MockHttpServletRequest();
 		res = new MockHttpServletResponse();
-		req.setCookies(new Cookie("account_site", member.getAccount()));
 
 	}
 
@@ -80,56 +62,23 @@ public class IndexControllerTest {
 	public void testIndex() throws Exception {
 
 		req.setMethod("get");
-		req.setRequestURI("/");
+		req.setRequestURI("/loginForm");
 
 		Object handler = handlerMapping.getHandler(req).getHandler();
 		ModelAndView mav = handlerAdapter.handle(req, res, handler);
-
-		assertThat(mav.getViewName(), CoreMatchers.is("/index"));
+		assertEquals(res.getStatus(), 200);
 
 	}
 
 	@Test
-	public void testDetail() throws Exception {
-
+	public void testLogout() throws Exception {
 		req.setMethod("get");
-		req.setRequestURI("/detail");
-
-		req.addParameter("isbn", "12341234");
+		req.setRequestURI("/logout");
 
 		Object handler = handlerMapping.getHandler(req).getHandler();
 		ModelAndView mav = handlerAdapter.handle(req, res, handler);
+		assertEquals(res.getStatus(), 200);
 
-		assertThat(mav.getViewName(), CoreMatchers.is("/detail"));
-
-		Bookmark bookmark = (Bookmark) mav.getModel().get("bookmark");
-		assertNotNull(bookmark);
-
-	}
-
-	@Test
-	public void testBookmarks() throws Exception {
-
-		req.setMethod("get");
-		req.setRequestURI("/bookmarks");
-
-		Object handler = handlerMapping.getHandler(req).getHandler();
-		ModelAndView mav = handlerAdapter.handle(req, res, handler);
-
-		assertThat(mav.getViewName(), CoreMatchers.is("/bookmarks"));
-
-	}
-
-	@Test
-	public void testSearchHistory() throws Exception {
-
-		req.setMethod("get");
-		req.setRequestURI("/searchHistory");
-
-		Object handler = handlerMapping.getHandler(req).getHandler();
-		ModelAndView mav = handlerAdapter.handle(req, res, handler);
-
-		assertThat(mav.getViewName(), CoreMatchers.is("/searchHistory"));
 	}
 
 	@After

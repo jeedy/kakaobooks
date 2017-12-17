@@ -18,7 +18,6 @@
 
 
 ### 설치
-<https://github.com/jeedy/kakaobooks.git>
 
 ```
 $ git clone https://github.com/jeedy/kakaobooks.git
@@ -40,8 +39,7 @@ $ curl -v localhost:8000
 
 ```
 $ export JAVA_HOME="`/usr/libexec/java_home -v '1.8*'`"
-$ mvn clean compile
-$ mvn test
+$ mvn clean compile test
 ```
 
 
