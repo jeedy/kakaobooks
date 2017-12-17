@@ -41,17 +41,19 @@ public class SearchHistoryRepositoryTest {
 
 	@Test
 	public void testInsertSelectAndDelete() {
+		// 1. 검색 히스트로 저장
 		SearchHistory searchHistory = new SearchHistory("시작하세요", EnumBookTarget.전체.getCode(),
 				EnumBookCategory.전체.getCode(), Timestamp.valueOf(LocalDateTime.now()), member);
 		this.SearchHistoryRepository.save(searchHistory);
 
-		// 1. 저장된 것 확인
-		assertThat(searchHistory.getSearch_word()).isEqualTo("시작하세요");
 		// 2. 회원으로 검색
 		assertTrue(this.SearchHistoryRepository.findByMember(member, new PageRequest(0, 1)).getContent().size() > 0);
+
 		// 3. 삭제 테스트
 		this.SearchHistoryRepository
 				.delete(this.SearchHistoryRepository.findByMember(member, new PageRequest(0, 1)).getContent());
+
+		// 4. 삭제된것 확인
 		assertFalse(this.SearchHistoryRepository.findByMember(member, new PageRequest(0, 1)).getContent().size() > 0);
 
 	}

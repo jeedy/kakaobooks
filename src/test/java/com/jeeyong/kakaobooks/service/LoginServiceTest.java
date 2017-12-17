@@ -36,9 +36,11 @@ public class LoginServiceTest {
 	@Test
 	public void testLogin() {
 		CryptEncoding encoding = new CryptEncoding();
+		// 1. 로그인
 		boolean result = loginService.login(res, "testMember", encoding.encode("1234"));
 		logger.info("islogined =" + result);
 
+		// 2. 로그아웃
 		String redirectUrl = loginService.logout(res);
 		assertEquals("redirect:/loginForm", redirectUrl);
 

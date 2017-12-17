@@ -38,18 +38,21 @@ public class BookmarkRepositoryTest {
 
 	@Test
 	public void testInsertSelectAndDelete() {
+		// 1. 북마크 저장
 		Bookmark bookmark = new Bookmark("시작하세요", "12341234", Timestamp.valueOf(LocalDateTime.now()), member);
 		this.bookmarkRepository.save(bookmark);
 
-		// 1. 저장된 것 확인
-		assertThat(bookmark.getTitle()).isEqualTo("시작하세요");
-		// 2. 회원 ISDN 컬럼 검색 테스트
+		// 2. 회원, ISDN 으로 북마크 검색
 		assertNotNull(this.bookmarkRepository.findOneByMemberAccountAndIsbn(member, "12341234"));
+
 		// 3. 회원으로 검색
 		assertTrue(this.bookmarkRepository.findByMember(member, new PageRequest(0, 1)).getContent().size() > 0);
+
 		// 4. 삭제 테스트
 		this.bookmarkRepository
 				.delete(this.bookmarkRepository.findByMember(member, new PageRequest(0, 1)).getContent());
+
+		// 5. 삭제된 내용 확인
 		assertFalse(this.bookmarkRepository.findByMember(member, new PageRequest(0, 1)).getContent().size() > 0);
 
 	}

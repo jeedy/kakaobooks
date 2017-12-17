@@ -12,7 +12,6 @@ import javax.servlet.http.Cookie;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +25,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
@@ -84,7 +82,7 @@ public class IndexControllerTest {
 
 		Object handler = handlerMapping.getHandler(req).getHandler();
 		ModelAndView mav = handlerAdapter.handle(req, res, handler);
-
+		assertEquals(res.getStatus(), 200);
 		assertThat(mav.getViewName(), CoreMatchers.is("/index"));
 
 	}
@@ -99,7 +97,7 @@ public class IndexControllerTest {
 
 		Object handler = handlerMapping.getHandler(req).getHandler();
 		ModelAndView mav = handlerAdapter.handle(req, res, handler);
-
+		assertEquals(res.getStatus(), 200);
 		assertThat(mav.getViewName(), CoreMatchers.is("/detail"));
 
 		Bookmark bookmark = (Bookmark) mav.getModel().get("bookmark");
@@ -115,7 +113,7 @@ public class IndexControllerTest {
 
 		Object handler = handlerMapping.getHandler(req).getHandler();
 		ModelAndView mav = handlerAdapter.handle(req, res, handler);
-
+		assertEquals(res.getStatus(), 200);
 		assertThat(mav.getViewName(), CoreMatchers.is("/bookmarks"));
 
 	}
@@ -128,6 +126,7 @@ public class IndexControllerTest {
 
 		Object handler = handlerMapping.getHandler(req).getHandler();
 		ModelAndView mav = handlerAdapter.handle(req, res, handler);
+		assertEquals(res.getStatus(), 200);
 
 		assertThat(mav.getViewName(), CoreMatchers.is("/searchHistory"));
 	}

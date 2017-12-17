@@ -30,9 +30,11 @@ public class MemberServiceTest {
 	@Test
 	public void testInsertSelect() throws Exception {
 
+		// 1. 회원정보 저장
 		Member member = new Member("testMember", "1234", Timestamp.valueOf(LocalDateTime.now()));
 		memberService.save(member);
 
+		// 2. 회원정보 검색
 		Member searchedMember = memberService.getMember(member.getAccount());
 		assertEquals(member.getAccount(), searchedMember.getAccount());
 	}
