@@ -84,6 +84,11 @@
 						.ajax({
 							url : "/ajax/searchBooks",
 							data : $(frm).serialize(),
+							beforeSend: function(){
+								$(frm).find("button[type=submit]").prop("disabled", true);
+								$(frm).find("button[type=submit]").text("Searching for ...");
+								console.log($(frm).find("button[type=submit]"));
+							},
 							success : function(res) {
 								if (res.meta.total_count < 1) {
 									$("#books > ul").html("");
@@ -153,6 +158,8 @@
 								alert(res);
 							},
 							complete : function() {
+								$(frm).find("button[type=submit]").prop("disabled", false);
+								$(frm).find("button[type=submit]").text("검색");
 							}
 						});
 			}
