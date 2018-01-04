@@ -1,5 +1,10 @@
 # Created by https://www.gitignore.io/api/macos,maven,eclipse
 
+
+### IntelliJ ###
+.idea
+*.iml
+
 ### Eclipse ###
 
 .metadata
