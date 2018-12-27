@@ -45,7 +45,7 @@ public class ApiServiceTest {
 
 		// 2. 찾은 책 정보 확인
 		assertNotNull(document);
-		assertEquals(document.get("title"), "시작하세요! C# 7.1 프로그래밍");
+		assertEquals(document.get("title"), "시작하세요 C# 7.1 프로그래밍");
 
 	}
 
