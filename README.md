@@ -1,4 +1,7 @@
 # kakaobooks
+
+https://secure.travis-ci.org/[YOUR_GITHUB_USERNAME]/[YOUR_PROJECT_NAME].png
+
 카카오 검색 API 를 이용해 책 검색 서비스 개발 / 로그인기반 / 책검색/ 북마크 / 검색 히스토리 /  책 상세 페이지 / 
 
 > * 포트는 8000 을 사용합니다. (application.properties 에서 수정 가능.)
