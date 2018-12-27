@@ -2,3 +2,10 @@ language: java
 jdk:
   - oraclejdk8
   - openjdk8
+addons:
+  sonarcloud:
+    organization: "jeedy-github"
+    token:
+      secure: 0d0fa4bd03ee391368b059d92a7b5fd225c016cb
+script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
